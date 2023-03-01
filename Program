@@ -1,0 +1,81 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
+using System.Xml.Linq;
+
+namespace Ksiazka_Telefoniczna
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Hello from the PhoneBook app");
+
+            Console.WriteLine("1. Add contact ");
+            Console.WriteLine("2. Display contact by number");
+            Console.WriteLine("3. Display all contacts");
+            Console.WriteLine("4. Search contacts");
+            Console.WriteLine("5. Delete an existing contact");
+            Console.WriteLine("To exit insert 'x' " );
+
+            var userInput = Console.ReadLine();
+
+            var phoneBook = new PhoneBook();
+            while (true)
+            {
+                switch (userInput)
+                {
+                    case "1":
+                        Console.WriteLine("Insert number at least three characters");
+                        var number = Console.ReadLine();
+                        PhoneBook.CountNumber(number);
+
+                        Console.WriteLine("Insert Surname at least three characters");
+                        var surname = Console.ReadLine();
+                        PhoneBook.CountString(surname);
+
+                        Console.WriteLine("Insert name enter 9 digits");
+                        var name = Console.ReadLine();
+                        PhoneBook.CountString(name);
+
+                        var newContact = new Contact(name, surname, number);
+                        break;
+
+                    case "2":
+                        Console.WriteLine("Insert number");
+                        var numberToSearch = Console.ReadLine();
+                        phoneBook.DisplayContact(numberToSearch);
+
+                        break;
+                    case "3":
+                        phoneBook.DisplayAllContact();
+                        break;
+
+                    case "4":
+                        Console.WriteLine("Insert search phrase");
+                        var searchPhrease = Console.ReadLine();
+                        phoneBook.DisplayMatchingContact(searchPhrease);
+                        break;
+
+                    case "5":
+                        Console.WriteLine("Delete an existing contact ");
+                        string removePhrease = Console.ReadLine();
+                        phoneBook.RemoveContact(removePhrease);
+                        break;
+
+                    case "x":
+                        return;
+
+                    default:
+                        Console.WriteLine("Invalid operation");
+                        break;
+                }
+                Console.WriteLine("Select the operation number ");
+                userInput = Console.ReadLine();
+            }
+        }
+    }
+}
